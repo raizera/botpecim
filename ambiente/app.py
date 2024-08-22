@@ -1,5 +1,6 @@
 import os
 import json
+from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
@@ -9,8 +10,13 @@ from langchain.prompts import PromptTemplate
 import streamlit as st
 import google.generativeai as genai
 
+# Carrega variáveis de ambiente do arquivo .env, que contém informações sensíveis como chaves de API
+load_dotenv()
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')  # Obtém a chave da API do Google a partir das variáveis de ambiente
+
 # Configura o cliente da API Google Generative AI usando a chave da API fornecida
-genai.configure(api_key="AIzaSyABWrsF6-pUZa38AqYmKPUQS1IMm8_LLgM")
+genai.configure(api_key=GOOGLE_API_KEY)
+
 
 # Define o caminho para o arquivo PDF que será processado
 pdf_path = "database-site-pecim.pdf"
