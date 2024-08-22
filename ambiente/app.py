@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
-from langchain_community.vectorstores import faiss
+from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 import streamlit as st
@@ -53,7 +53,7 @@ def create_vector_store(chunks):
     # Configura o modelo de embeddings do Google Generative AI para converter texto em vetores numéricos
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     # Cria o banco de vetores usando os pedaços de texto e os embeddings gerados
-    vector_store = faiss.from_texts(chunks, embedding=embeddings)
+    vector_store = FAISS.from_texts(chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")  # Salva o banco de vetores localmente para uso futuro
 
 # Função para configurar o modelo de conversação (chatbot) e o prompt para a cadeia de Pergunta/Resposta (QA)
@@ -87,7 +87,7 @@ def generate_response(user_question):
     # Carrega os embeddings do modelo de Google Generative AI
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     # Carrega o banco de vetores salvo anteriormente e permite a desserialização segura
-    vector_store = faiss.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     # Realiza uma busca de similaridade no banco de vetores para encontrar documentos relacionados à pergunta do usuário
     docs = vector_store.similarity_search(user_question)
     # Configura a cadeia de QA (Pergunta/Resposta)
