@@ -3,5 +3,5 @@ PyPDF2
 langchain
 langchain-google-genai
 google-generativeai
-FAISS
+faiss-cpu
 python-dotenv
