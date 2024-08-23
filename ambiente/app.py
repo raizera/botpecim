@@ -19,7 +19,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 
 # Define o caminho para o arquivo PDF que será processado
-pdf_path = "/database-site-pecim.pdf"
+pdf_path = "database-site-pecim.pdf"
 
 # Sistema de cache para armazenar respostas anteriores
 CACHE_FILE = "response_cache.json"
